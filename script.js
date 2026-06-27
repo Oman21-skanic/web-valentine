@@ -98,26 +98,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("Autoplay ditahan browser:", e);
                     musicIcon.innerText = '🔇';
                     isMusicPlaying = false;
-                    hasUserInteractedWithMusic = false; // Biarkan trigger lain mencoba lagi
                 });
             }
         }
     }
 
-    musicBtn.addEventListener('click', () => toggleMusic(true));
+    musicBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Cegah event bocor ke body (menghindari harus klik 2x)
+        toggleMusic(true);
+    });
 
-    // Auto-play workaround untuk semua interaksi pertama (klik atau sentuh)
-    const unlockAudio = () => {
+    // Auto-play workaround untuk semua interaksi pertama di layar (terutama HP)
+    const unlockAudio = (e) => {
+        // Jika user klik tombol musik langsung, abaikan fungsi ini
+        if (e.target.closest('#music-btn')) return;
+        
         if (!isMusicPlaying && !hasUserInteractedWithMusic) {
             toggleMusic();
             hasUserInteractedWithMusic = true;
         }
+        
+        // Hapus pendengar setelah interaksi pertama berhasil
         document.body.removeEventListener('click', unlockAudio);
-        document.body.removeEventListener('touchstart', unlockAudio);
+        document.body.removeEventListener('touchend', unlockAudio);
     };
     
+    // Gunakan 'touchend' bukan 'touchstart' karena HP lebih menoleransi touchend untuk media
     document.body.addEventListener('click', unlockAudio);
-    document.body.addEventListener('touchstart', unlockAudio, { passive: true });
+    document.body.addEventListener('touchend', unlockAudio);
 
 
     // --- NAVIGATION LOGIC ---
