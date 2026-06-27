@@ -1,0 +1,801 @@
+:root {
+    --bg-maroon: #4a0404;
+    /* Latar belakang merah marun gelap (elegan) */
+    --text-light: #fef0f0;
+    /* Teks terang */
+    --text-dark: #3e2723;
+    /* Teks gelap untuk di dalam polaroid/kartu */
+    --btn-choco: #3e2723;
+    /* Cokelat gelap untuk tombol */
+    --btn-border: #d4a373;
+    /* Border keemasan/mocca muda */
+    --btn-hover: #5d4037;
+    /* Cokelat lebih terang saat hover */
+    --accent-red: #c1121f;
+    /* Merah terang untuk aksen */
+    --polaroid-bg: #fffdf5;
+    /* Kertas agak krem */
+
+    --font-main: 'Nunito', sans-serif;
+    --font-hand: 'Kalam', cursive;
+    --font-romantic: 'Dancing Script', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-maroon);
+    background-image: radial-gradient(circle at center, #6b0f0f 0%, #4a0404 100%);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    height: 100dvh;
+}
+
+/* MUSIC TOGGLE BUTTON */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--btn-border);
+    backdrop-filter: blur(5px);
+    color: var(--text-light);
+    border-radius: 30px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.music-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* EFEK KELOPAK BUNGA JATUH */
+#petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    top: -20px;
+    background-color: var(--accent-red);
+    opacity: 0.7;
+    border-radius: 15px 0 15px 0;
+    /* Bentuk kelopak bunga */
+    animation: fall linear infinite;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-20px) rotate(0deg) translateX(0);
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg) translateX(50px);
+    }
+}
+
+/* MAIN CONTAINER */
+#app-container {
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    z-index: 1;
+}
+
+/* SCENE LAYOUT - Block Scrolling */
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    /* Hide default */
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+
+    /* Scroll mechanism */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 80px 20px 120px 20px;
+    text-align: center;
+}
+
+.scene.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* LAYERS */
+.media-layer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.text-layer {
+    display: block;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.action-layer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+}
+
+/* TYPOGRAPHY */
+.text-layer h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.dancing-text {
+    font-family: var(--font-romantic);
+    font-size: 2.5rem !important;
+    color: #ffccd5 !important;
+    font-weight: 700;
+}
+
+.long-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-weight: 600;
+    color: #ffccd5;
+}
+
+.gif-media {
+    max-width: 160px;
+    max-height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.spotify-layer {
+    width: 100%;
+}
+
+/* BUTTONS */
+.btn-main {
+    background: var(--btn-border);
+    color: var(--bg-maroon);
+    border: 3px solid #ffccd5;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    font-weight: 900;
+    cursor: pointer;
+    min-width: 140px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.btn-main:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 rgba(0, 0, 0, 0);
+}
+
+.heartbeat {
+    animation: heartbeatPulse 2.5s infinite;
+}
+
+@keyframes heartbeatPulse {
+
+    0%,
+    20%,
+    40%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    10%,
+    30% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 204, 213, 0.5);
+    }
+}
+
+/* PUZZLE FOTO */
+.puzzle-frame {
+    position: relative;
+    padding: 10px;
+    background: #fffdf5;
+    /* Kertas agak krem seperti polaroid */
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid var(--btn-border);
+    margin: 0 auto;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Optional rotation for aesthetic */
+    transform: rotate(-1deg);
+    transition: transform 0.3s;
+}
+
+.puzzle-frame:hover {
+    transform: rotate(0deg);
+}
+
+.dnd-frame {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Thumbnail Preview */
+.puzzle-preview {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 80px;
+    height: 80px;
+    border: 3px solid var(--btn-border);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 15;
+    background: #fff;
+    overflow: hidden;
+    transform: rotate(5deg);
+}
+
+.puzzle-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#drop-board {
+    width: 294px;
+    height: 294px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(212, 163, 115, 0.4);
+    border: 2px dashed #d4a373;
+    border-radius: 4px;
+    position: relative;
+}
+
+.drop-slot {
+    width: 96px;
+    height: 96px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#pieces-tray {
+    width: 100%;
+    max-width: 320px;
+    min-height: 120px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 163, 115, 0.5);
+}
+
+.dnd-piece {
+    width: 96px;
+    height: 96px;
+    background-image: url('1-example.jpg');
+    background-size: 288px 288px;
+    cursor: grab;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    touch-action: none;
+    /* Penting untuk touch drag */
+    z-index: 5;
+    transition: transform 0.1s;
+}
+
+.dnd-piece:active {
+    cursor: grabbing;
+}
+
+.dnd-piece.dragging {
+    opacity: 0.9;
+    z-index: 100 !important;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: none;
+    /* Matikan transisi saat di-drag agar instan ikut kursor */
+}
+
+.dnd-piece.locked {
+    position: absolute;
+    /* Terkunci di atas board */
+    margin: 0 !important;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: default;
+    z-index: 2;
+    filter: brightness(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Overlay Transisi (Fullscreen) */
+#puzzle-success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #6b0f0f 0%, #4a0404 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#puzzle-success-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.success-heart {
+    font-size: 7rem;
+    animation: heartbeatPulse 1.5s infinite, glowHeart 2s infinite alternate;
+    text-shadow: 0 0 40px rgba(255, 50, 100, 0.8);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#puzzle-success-overlay.show .success-heart {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes glowHeart {
+    0% {
+        filter: drop-shadow(0 0 20px rgba(255, 100, 150, 0.5));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 60px rgba(255, 100, 150, 1));
+    }
+}
+
+/* Class pembantu untuk fade-out perlahan */
+.fade-out {
+    opacity: 0 !important;
+    transition: opacity 1s ease-out !important;
+    pointer-events: none !important;
+}
+
+.clue-text {
+    font-size: 0.95rem;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.error-text {
+    color: #ff8ba0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ========================================= */
+/* GALERI POLAROID (SWIPE STACK)             */
+/* ========================================= */
+
+.polaroid-layer {
+    flex-direction: column;
+}
+
+.polaroid-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 380px;
+    margin: 0 auto;
+    touch-action: none;
+    /* Penting untuk swipe: Mencegah scroll layar saat drag */
+}
+
+/* Tombol rahasia di bawah tumpukan */
+.gallery-end-action {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+}
+
+.polaroid-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--polaroid-bg);
+    padding: 15px 15px 30px 15px;
+    border-radius: 2px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: grab;
+    will-change: transform;
+    /* Transisi default (akan dimatikan oleh JS saat dragging) */
+    transition: transform 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.polaroid-card:active {
+    cursor: grabbing;
+}
+
+/* Rotasi acak agar terlihat berserakan natural */
+#polaroid-3 {
+    transform: rotate(-3deg);
+    z-index: 1;
+}
+
+#polaroid-2 {
+    transform: rotate(2deg);
+    z-index: 2;
+}
+
+#polaroid-1 {
+    transform: rotate(-1deg);
+    z-index: 3;
+}
+
+/* Saat sedang di-drag */
+.polaroid-card.dragging {
+    transition: none;
+    /* Matikan transisi agar ngikutin jari secara realtime */
+    z-index: 100 !important;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Animasi terbuang */
+.fly-out-right {
+    transform: translate(150%, 50px) rotate(30deg) !important;
+    opacity: 0;
+    transition: transform 0.6s ease-out, opacity 0.5s ease-out !important;
+    pointer-events: none;
+}
+
+.fly-out-left {
+    transform: translate(-150%, 50px) rotate(-30deg) !important;
+    opacity: 0;
+    transition: transform 0.6s ease-out, opacity 0.5s ease-out !important;
+    pointer-events: none;
+}
+
+/* Selotip di atas polaroid */
+.tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 80px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.polaroid-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background-color: #ddd;
+    margin-bottom: 15px;
+    filter: sepia(0.2) contrast(1.1);
+    /* Efek vintage */
+}
+
+.polaroid-text {
+    font-family: var(--font-hand);
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* ========================================= */
+/* FINALE CARD                               */
+/* ========================================= */
+
+.finale-card {
+    background: rgba(255, 253, 245, 0.95);
+    /* Kertas hangat */
+    border-radius: 20px;
+    padding: 35px 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border: 4px solid var(--btn-border);
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+.finale-title {
+    color: var(--bg-maroon) !important;
+    margin-bottom: 20px;
+    text-shadow: none !important;
+}
+
+.finale-text {
+    color: var(--text-dark) !important;
+    font-size: 1rem !important;
+    line-height: 1.6;
+}
+
+@media (max-width: 380px) {
+    .num-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .text-layer h1 {
+        font-size: 1.4rem;
+    }
+
+    .btn-main {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+
+    .dancing-text {
+        font-size: 2.2rem !important;
+    }
+
+    .polaroid-wrapper {
+        height: 350px;
+    }
+
+    .polaroid-photo {
+        height: 220px;
+    }
+}
+
+/* ========================================= */
+/* EFEK TYPEWRITER (PROLOG)                  */
+/* ========================================= */
+
+.typewriter-scene {
+    display: flex !important;
+    /* Timpa display: block dari .scene.active */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.typewriter-container {
+    min-height: 150px;
+    /* Stabilkan layout saat teks memudar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+#typewriter-text {
+    display: inline;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ffccd5;
+    font-weight: 600;
+}
+
+#typewriter-cursor {
+    display: inline-block;
+    font-weight: bold;
+    color: #ffccd5;
+    margin-left: 2px;
+    animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* --- ENVELOPE SCENE --- */
+#scene-envelope {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#scene-envelope.active {
+    display: flex;
+}
+
+.envelope-container {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-top: -50px;
+}
+
+.envelope-container:hover {
+    transform: scale(1.05);
+}
+
+.envelope {
+    position: relative;
+    width: 240px;
+    height: 160px;
+    background: #d4a373;
+    /* Kraft paper color */
+    margin: 0 auto 30px;
+    border-radius: 5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    perspective: 1000px;
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-left: 120px solid #e3b587;
+    border-right: 120px solid #e3b587;
+    border-bottom: 80px solid #f0c59a;
+    border-top: 80px solid transparent;
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 120px solid transparent;
+    border-right: 120px solid transparent;
+    border-top: 85px solid #d4a373;
+    border-bottom: 85px solid transparent;
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.heart-seal {
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    z-index: 3;
+    animation: heartbeatPulse 1.5s infinite;
+    text-shadow: 0 0 15px rgba(255, 50, 100, 0.5);
+}
+
+.envelope-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--text-light);
+    margin-top: 20px;
+    transition: opacity 0.5s ease;
+}
+
+.pulse-text {
+    animation: textPulse 2s infinite;
+}
+
+@keyframes textPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Animation states for opened envelope */
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.envelope.open .heart-seal {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.envelope-container.opening {
+    pointer-events: none;
+}
+
+.envelope.open {
+    animation: floatAway 1.5s ease forwards 0.5s;
+}
+
+@keyframes floatAway {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(20px) scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(1.5);
+        opacity: 0;
+    }
+}

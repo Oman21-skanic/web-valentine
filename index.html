@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="web-title">Memuat...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Kalam:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Tombol Musik -->
+    <button id="music-btn" class="music-btn">
+        <span id="music-icon">🎵</span>
+    </button>
+    <audio id="bg-music" loop preload="auto">
+        <source id="music-source" src="" type="audio/mpeg">
+    </audio>
+
+    <div id="app-container">
+
+        <!-- Efek Hujan Kelopak Bunga (Petals) -->
+        <div id="petals-container"></div>
+
+        <!-- SCENE 1: PUZZLE FOTO DRAG & DROP -->
+        <section id="scene-password" class="scene active">
+            
+            <div class="text-layer" style="margin-bottom: 15px;">
+                <h1 class="dancing-text" id="puzzle-title" style="font-size: 2.2rem !important; margin-bottom: 5px;">Memuat...</h1>
+                <p class="long-text clue-text" id="puzzle-clue" style="margin-top: 5px;">Memuat...</p>
+            </div>
+
+            <div class="media-layer" style="flex-direction: column;">
+                
+                <!-- Bingkai Utama -->
+                <div class="puzzle-frame dnd-frame">
+                    <!-- Thumbnail Preview -->
+                    <div class="puzzle-preview">
+                        <img id="puzzle-preview-img" src="" alt="Preview">
+                    </div>
+
+                    <!-- Papan Target (Drop Board) 3x3 -->
+                    <div id="drop-board">
+                        <div class="drop-slot" data-slot="0"></div>
+                        <div class="drop-slot" data-slot="1"></div>
+                        <div class="drop-slot" data-slot="2"></div>
+                        <div class="drop-slot" data-slot="3"></div>
+                        <div class="drop-slot" data-slot="4"></div>
+                        <div class="drop-slot" data-slot="5"></div>
+                        <div class="drop-slot" data-slot="6"></div>
+                        <div class="drop-slot" data-slot="7"></div>
+                        <div class="drop-slot" data-slot="8"></div>
+                    </div>
+                </div>
+
+                <!-- Nampan Kepingan (Pieces Tray) -->
+                <div id="pieces-tray">
+                    <!-- Kepingan puzzle akan dirender oleh JS di sini -->
+                </div>
+            </div>
+            
+            <!-- Overlay Transisi (Fullscreen) -->
+            <div id="puzzle-success-overlay" class="hidden">
+                <div class="success-heart">💖</div>
+            </div>
+
+        </section>
+
+        <!-- SCENE 2: PROLOG TYPEWRITER -->
+        <section id="scene-prolog" class="scene typewriter-scene">
+            <div class="typewriter-container">
+                <p id="typewriter-text" class="long-text"></p>
+                <span id="typewriter-cursor">|</span>
+            </div>
+        </section>
+
+
+
+        <!-- SCENE 2.5: BUKA KENANGAN (ENVELOPE) -->
+        <section id="scene-envelope" class="scene">
+            <div class="envelope-container" id="envelope-btn">
+                <div class="envelope">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="heart-seal">❤️</div>
+                </div>
+                <p class="envelope-text pulse-text" id="envelope-text">Memuat...</p>
+            </div>
+        </section>
+
+        <!-- SCENE 4: GALERI POLAROID -->
+        <section id="scene-gallery" class="scene">
+            <div class="media-layer polaroid-layer" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+                
+                <!-- Polaroid Wrapper (Area Swipe) -->
+                <div class="polaroid-wrapper" id="polaroid-wrapper">
+                    
+                    <!-- Pesan Sinematik di Dasar Tumpukan -->
+                    <div class="gallery-end-action" id="gallery-end-message" style="opacity: 0; transition: opacity 1.5s ease; pointer-events: none;">
+                        <p class="end-text" id="gallery-end-text" style="color: #ffccd5; font-family: 'Nunito', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1.5; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Memuat...</p>
+                    </div>
+
+                    <!-- Polaroid 3 (Paling Bawah) -->
+                    <div class="polaroid-card stacked" id="polaroid-3">
+                        <div class="tape"></div>
+                        <img src="" alt="Foto 3" class="polaroid-photo" id="photo-3">
+                        <p class="polaroid-text" id="polaroid-text-3">Memuat...</p>
+                    </div>
+                    
+                    <!-- Polaroid 2 (Tengah) -->
+                    <div class="polaroid-card stacked" id="polaroid-2">
+                        <div class="tape"></div>
+                        <img src="" alt="Foto 2" class="polaroid-photo" id="photo-2">
+                        <p class="polaroid-text" id="polaroid-text-2">Memuat...</p>
+                    </div>
+                    
+                    <!-- Polaroid 1 (Paling Atas) -->
+                    <div class="polaroid-card stacked" id="polaroid-1">
+                        <div class="tape"></div>
+                        <img src="" alt="Foto 1" class="polaroid-photo" id="photo-1">
+                        <p class="polaroid-text" id="polaroid-text-1">Memuat...</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 6: FINALE -->
+        <section id="scene-finale" class="scene finale-bg">
+            <div id="hearts-container"></div>
+            
+            <div class="text-layer finale-text-layer">
+                <div class="finale-card">
+                    <h1 class="finale-title dancing-text" id="finale-title">Memuat...</h1>
+                    <p class="long-text finale-text" id="finale-text">Memuat...</p>
+                </div>
+            </div>
+            <div class="action-layer">
+                <button class="btn-main heartbeat" id="btn-restart">Memuat...</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
