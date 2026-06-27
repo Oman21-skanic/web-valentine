@@ -87,22 +87,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMusicPlaying) {
             bgMusic.pause();
             musicIcon.innerText = '🔇';
+            isMusicPlaying = false;
         } else {
-            bgMusic.play().catch(e => console.log("Autoplay ditahan browser"));
-            musicIcon.innerText = '🎵';
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.innerText = '🎵';
+                    isMusicPlaying = true;
+                }).catch(e => {
+                    console.log("Autoplay ditahan browser:", e);
+                    musicIcon.innerText = '🔇';
+                    isMusicPlaying = false;
+                    hasUserInteractedWithMusic = false; // Biarkan trigger lain mencoba lagi
+                });
+            }
         }
-        isMusicPlaying = !isMusicPlaying;
     }
 
     musicBtn.addEventListener('click', () => toggleMusic(true));
 
-    // Auto-play workaround
-    document.body.addEventListener('click', () => {
+    // Auto-play workaround untuk semua interaksi pertama (klik atau sentuh)
+    const unlockAudio = () => {
         if (!isMusicPlaying && !hasUserInteractedWithMusic) {
             toggleMusic();
-            hasUserInteractedWithMusic = true; // Anggap sebagai interaksi pertama
+            hasUserInteractedWithMusic = true;
         }
-    }, { once: true });
+        document.body.removeEventListener('click', unlockAudio);
+        document.body.removeEventListener('touchstart', unlockAudio);
+    };
+    
+    document.body.addEventListener('click', unlockAudio);
+    document.body.addEventListener('touchstart', unlockAudio, { passive: true });
 
 
     // --- NAVIGATION LOGIC ---
