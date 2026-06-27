@@ -1,7 +1,8 @@
 const CONFIG = {
     // 1. Pengaturan Musik & Tab Browser
-    judulWeb: "Satu Hal Yang Paling Sempurna",
+    judulWeb: "Satu Hal Yang Paling Sempurna ✨",
     musik: "Sempurna (Instrumental Slowed_Reverb) by Andra and The BackBone _ Shinkai Clips AMV.mp3",
+    teksTutorAudio: "Psst... kalau lagunya belum nyala, ketuk ikon nada di atas ya 🎵",
 
     // 2. Halaman Puzzle
     teksPuzzleJudul: "Susun Hati Ini",

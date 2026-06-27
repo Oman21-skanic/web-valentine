@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('web-title').innerText = CONFIG.judulWeb;
         document.getElementById('music-source').src = CONFIG.musik;
         document.getElementById('bg-music').load();
+        
+        const toastText = document.getElementById('toast-text');
+        if (toastText) toastText.innerText = CONFIG.teksTutorAudio || "Psst... kalau lagunya belum nyala, ketuk ikon nada di atas ya 🎵";
 
         // 2. Puzzle
         document.getElementById('puzzle-title').innerText = CONFIG.teksPuzzleJudul;
@@ -98,6 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("Autoplay ditahan browser:", e);
                     musicIcon.innerText = '🔇';
                     isMusicPlaying = false;
+                    
+                    // Tampilkan notifikasi toast halus
+                    const toast = document.getElementById('toast-audio');
+                    if (toast && !toast.classList.contains('show')) {
+                        toast.classList.add('show');
+                        setTimeout(() => {
+                            toast.classList.remove('show');
+                        }, 5000);
+                    }
                 });
             }
         }
